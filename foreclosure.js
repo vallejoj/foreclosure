@@ -23,7 +23,7 @@ function missPayment() {
 return {
   getBalance: function() {
     return account.balance;
-  },
+  ,
 
   receivePayment: function(amount) {
     if (amount < account.monthlyPayment) {
@@ -32,6 +32,7 @@ return {
       account.balance -= amount;
     }
   }
+}
 }
 getMonthlyPayment: function  () {
   return account.monthlyPayment;
@@ -69,3 +70,9 @@ function borrower (loan) {
 }
 stevesLoan= loan();
 steve= borrower(stevesLoan);
+while (stevesLoan.isForeclosed()===false) {
+  steve.payDay();
+  steve.makePayment();
+  month++
+
+}
