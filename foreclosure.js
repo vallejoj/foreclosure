@@ -1,3 +1,6 @@
+
+'use strict';
+
 var steve;
 var stevesLoan;
 var month = 0;
@@ -17,7 +20,7 @@ function loan() {
   function missPayment() {
     account.defaulted++;
     if (account.defaulted >= account.defaultsToForeclose) {
-      return account.foreclosed = true;
+      account.foreclosed = true;
     }
   }
   return {
@@ -28,11 +31,10 @@ function loan() {
       if (amount < account.monthlyPayment) {
       missPayment();
 
-      } else {
+    }
         account.balance -= amount;
-      }
-    },
 
+    },
 
     getMonthlyPayment: function() {
       return account.monthlyPayment;
@@ -57,9 +59,9 @@ function borrower(loan) {
     },
 
     makePayment: function() {
-      if (account.funds > loan.getMonthlyPayment) {
-        account.funds -= loan.getMonthlyPayment;
-        loan.receivePayment(loan.getMonthlyPayment)();
+      if (account.funds > loan.getMonthlyPayment()) {
+        account.funds -= loan.getMonthlyPayment();
+        loan.receivePayment(loan.getMonthlyPayment());
       } else {
         loan.receivePayment(account.funds);
         account.funds = 0;
@@ -76,5 +78,8 @@ while (stevesLoan.isForeclosed() === false) {
   steve.payDay();
   steve.makePayment();
   month++;
+if (stevesLoan.balance===0) {
+  alert ("Great work Steve you da best!");
 
+}
 }
