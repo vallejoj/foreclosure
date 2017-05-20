@@ -12,7 +12,7 @@ function loan() {
     defaultsToForeclose: 5,
     foreclosed: false
   };
-}
+
 
 function missPayment() {
   account.defaulted++;
@@ -39,3 +39,33 @@ getMonthlyPayment: function  () {
 isForeclosed: function  () {
 return account.foreclosed;
 }
+}
+//
+// BORROWER
+
+function borrower (loan) {
+  var account={
+    monthlyIncome:1350,
+    funds:2800,
+    loan:loan,
+  }
+  return {
+    getFunds:function  () {
+      return account.funds;
+    }
+  }
+  makePayment:function  () {
+    if (account.funds> loan.monthlyPayment) {
+      account.funds-=loan.monthlyPayment;
+      loan.receivePayment(loan.monthlyPayment)();
+    }else{
+      loan.receivePayment(account.funds);
+      account.funds=0
+    }
+  }
+  payDay:function  () {
+    account.funds+=account.monthlyIncome;
+  }
+}
+stevesLoan= loan();
+steve= borrower(stevesLoan);
